@@ -86,7 +86,7 @@ export default function HorizontalScroll() {
 
   return (
     <div ref={containerRef} className="hs-container relative w-full" style={{ height: "400vh" }}>
-      <div ref={wrapperRef} className="hs-sticky top-0 left-0 w-full h-screen sticky overflow-hidden">
+      <div ref={wrapperRef} className="hs-sticky top-0 left-0 w-full sticky overflow-hidden" style={{ height: '100dvh' }}>
         <div
           ref={trackRef}
           className="hs-track flex h-full"
@@ -95,9 +95,9 @@ export default function HorizontalScroll() {
           {sectionsData.map((s, idx) => (
             <section
               key={s.id}
-              className="w-screen h-screen flex-shrink-0 flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 text-white"
+              className="w-screen h-screen flex-shrink-0 flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 text-white px-6"
             >
-              <h1 className="hs-heading text-5xl font-semibold tracking-tight">
+              <h1 className="hs-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight">
                 {s.title}
               </h1>
             </section>

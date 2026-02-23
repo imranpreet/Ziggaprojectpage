@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+  <rect width="100%" height="100%" fill="#fbfaf8"/>
+  <g transform="translate(180,150) rotate(-6)">
+    <rect width="1240" height="860" rx="14" fill="#e9e4dd" stroke="#c9a96e" stroke-width="8"/>
+    <path d="M60 700 L1180 100" stroke="#6b6b6b" stroke-width="24" opacity="0.18" fill="none"/>
+  </g>
+  <text x="50" y="1100" font-family="Inter, sans-serif" font-size="36" fill="#333">Divine Tunes-11 — Angle (placeholder)</text>
+</svg>

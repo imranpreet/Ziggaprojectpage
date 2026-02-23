@@ -97,24 +97,24 @@ export default function ImmersiveScroll() {
       {/* Scroll container with snap behaviour */}
       <div
         ref={containerRef}
-        className="relative z-10 h-screen w-full snap-y snap-mandatory overflow-y-auto"
-        style={{ scrollBehavior: 'smooth' }}
+        className="relative z-10 w-full snap-y snap-mandatory overflow-y-auto scroll-smooth"
+        style={{ height: '100dvh', scrollBehavior: 'smooth', touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
       >
         {sections.map((s, i) => (
           <section
             key={s.id}
             ref={(el) => (sectionsRef.current[i] = el)}
-            className="h-screen snap-start flex items-center justify-center px-6"
-            style={{ scrollSnapStop: 'always' }}
+            className="snap-start flex items-center justify-center px-6"
+            style={{ minHeight: '100dvh', scrollSnapStop: 'always' }}
           >
             <motion.div
               className="max-w-4xl text-center text-white px-6"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
+              viewport={{ once: true, amount: 0.6, root: containerRef }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="font-serif text-5xl sm:text-6xl lg:text-7xl leading-tight mb-6 tracking-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 tracking-tight">
                 {s.title}
               </h2>
               <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto">{s.subtitle}</p>

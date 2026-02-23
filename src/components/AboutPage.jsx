@@ -946,11 +946,11 @@ const ClosingCTA = () => {
             Join Us
           </a>
           <a
-            href="https://zigguratss.com/contact"
+            href="https://zigguratss.com/product"
             data-magnetic
             className="px-10 py-4 border border-white/20 text-white/70 font-sans text-xs tracking-[0.25em] uppercase transition-all duration-500 hover:border-gallery-accent hover:text-gallery-accent"
           >
-            Get in Touch
+            Product Page
           </a>
         </motion.div>
       </div>

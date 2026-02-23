@@ -15,6 +15,7 @@ html {
   overflow-x: hidden;
   max-width: 100%;
   width: 100%;
+  position: relative;
   height: 100%;
 }
 
@@ -24,10 +25,12 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* allow vertical scrolling on the document to avoid layout issues
+     while keeping horizontal overflow hidden */
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #faf9f6;
-  color: #1a1a1a;
+  background-color: #0f1724; /* Slate-950 */
+  color: #ffffff;
   cursor: auto;
   max-width: 100%;
   width: 100%;
@@ -35,12 +38,114 @@ body {
   position: relative;
 }
 
+:root{
+  --site-bg: #0f1724;
+  --muted: #94a3b8;
+  --gold: #c9a96e;
+}
+
+/* Page container to keep content from stretching too wide */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Small card lift used across product thumbnails */
+.card-hover {
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms;
+}
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,6,23,0.35); }
+
+/* subtle muted text used on white cards */
+.muted-text { color: #64748b; }
+
+/* price badge */
+.price-badge { background: var(--gold); color: #0f1724; padding: 0.18rem 0.5rem; border-radius: 6px; font-weight:600; font-size:0.9rem; }
+
+/* Section title style */
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; color: #0f1724; margin-bottom: 0.5rem; }
+.section-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
+
+/* improved card shadow utility */
+.shadow-deep { box-shadow: 0 18px 40px rgba(2,6,23,0.28); }
+
+/* responsive image fit helpers */
+.img-cover { width: 100%; height: 100%; object-fit: cover; }
+
+/* small fade-up helper for non-js fallback or quick CSS-only uses */
+.fade-up {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+.fade-up.in { opacity: 1; transform: translateY(0); }
+
+/* On touch devices, avoid hover lifts to prevent jank */
+@media (hover: none) and (pointer: coarse) {
+  .card-hover:hover { transform: none; box-shadow: 0 8px 18px rgba(2,6,23,0.12); }
+}
+
+/* Slightly larger tappable areas on small screens */
+@media (max-width: 640px) {
+  .container { padding-left: 0.75rem; padding-right: 0.75rem; }
+  .price-badge { font-size: 0.85rem; padding: 0.12rem 0.45rem; }
+}
+
+/* Nature-Tech Palette */
+:root{
+  --petal-pink: #FDF2F8;
+  --leaf-green: #065F46;
+  --glass-white: rgba(255,255,255,0.75);
+}
+
+/* Glassmorphic card */
+.glass-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+  backdrop-filter: blur(8px) saturate(1.05);
+  -webkit-backdrop-filter: blur(8px) saturate(1.05);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+/* Shimmer effect for primary CTA */
+.shimmer {
+  position: relative; overflow: hidden;
+}
+.shimmer::after{
+  content: "";
+  position: absolute; inset: 0; transform: translateX(-120%);
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+  transition: transform 900ms cubic-bezier(.2,.9,.2,1);
+}
+.shimmer:hover::after{ transform: translateX(120%); }
+
+/* Floating lens / flare overlay */
+.lens-overlay { pointer-events: none; position: absolute; inset: 0; mix-blend-mode: screen; }
+.lens-dot { position: absolute; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06) 40%, rgba(0,0,0,0) 60%); filter: blur(18px); transform: translate(-50%,-50%); }
+
+/* Floating metadata badge */
+.meta-badge { background: var(--leaf-green); color: white; padding: 0.35rem 0.6rem; border-radius: 999px; box-shadow: 0 6px 20px rgba(6,95,70,0.18); font-weight:600; }
+
+/* Bento grid */
+.bento-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 768px){ .bento-grid { grid-template-columns: 1.2fr 0.6fr 0.8fr; } }
+
+/* scent map stroke animation */
+.scent-path { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: scent-draw 2.4s ease forwards; }
+@keyframes scent-draw { to { stroke-dashoffset: 0; } }
+
+/* responsive action bar */
+.action-bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 0.75rem; display: flex; gap: 0.75rem; justify-content: center; backdrop-filter: blur(6px); }
+@media(min-width:1024px){ .action-bar { position: sticky; bottom: auto; right: 2rem; left: auto; width: 320px; margin-left: auto; } }
+
 #root {
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  height: 100%;
 }
 
 /* Prevent horizontal overflow on all elements */
@@ -65,7 +170,7 @@ section, div, main, article, aside, nav, header, footer {
 /* Custom selection */
 ::selection {
   background-color: #c9a96e;
-  color: #1a1a1a;
+  color: #0f1724;
 }
 
 /* Custom scrollbar */
@@ -90,3 +195,51 @@ section, div, main, article, aside, nav, header, footer {
 a, button, [role="button"] {
   cursor: pointer;
 }
+
+/* High-End Nature-Tech additions: parallax, navbar melt, editorial typography */
+
+/* Melting navbar (overlay) that blurs as page scrolls */
+.melting-navbar {
+  position: sticky; top: 0; z-index: 60; backdrop-filter: blur(12px) saturate(1.05);
+  -webkit-backdrop-filter: blur(12px) saturate(1.05);
+  background: linear-gradient(180deg, rgba(15,23,36,0.65), rgba(15,23,36,0.25));
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Editorial background serif title behind the hero */
+.editorial-title {
+  font-family: 'Playfair Display', serif;
+  position: absolute; left: 50%; top: 10%; transform: translateX(-50%);
+  font-size: clamp(5rem, 12vw, 12rem); line-height: 0.86; color: rgba(255,255,255,0.04);
+  pointer-events: none; user-select: none; z-index: 5;
+}
+
+/* Parallax perspective wrapper */
+.parallax-stage { perspective: 1200px; perspective-origin: 50% 40%; }
+.parallax-inner { transform-style: preserve-3d; transition: transform 420ms cubic-bezier(.2,.8,.2,1); }
+
+/* Life-cycle timeline */
+.lifecycle { display:flex; gap:1rem; align-items:center; }
+.lifecycle .step { display:flex; flex-direction:column; align-items:center; gap:0.35rem; }
+.lifecycle .dot { width:12px; height:12px; border-radius:50%; background: rgba(255,255,255,0.12); }
+.lifecycle .label { font-size:0.85rem; color: var(--muted); }
+.lifecycle .active .dot { background: var(--leaf-green); box-shadow: 0 8px 24px rgba(6,95,70,0.22); animation: pulse 1600ms infinite; }
+@keyframes pulse { 0% { transform: scale(1); opacity: 1 } 50% { transform: scale(1.28); opacity: 0.7 } 100% { transform: scale(1); opacity: 1 } }
+
+/* Punjabi Local Harvest badge gradient */
+.local-harvest { display:inline-block; padding:0.25rem 0.6rem; border-radius:999px; font-weight:700; color:#062e1f; background: linear-gradient(90deg, rgba(255,238,200,0.95), rgba(201,169,110,0.95)); box-shadow: 0 10px 26px rgba(6,95,70,0.08); }
+
+/* Flying item animation container */
+.fly-portal { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 1000; }
+.fly-img { width: 68px; height: 68px; object-fit: cover; border-radius: 8px; box-shadow: 0 14px 40px rgba(2,6,23,0.32); }
+
+/* Add-to-cart micro interaction: leaf to check */
+.leaf { width:18px; height:18px; display:inline-block; transform-origin:center; transition: transform 420ms cubic-bezier(.2,.8,.2,1); }
+.btn-loading .leaf { transform: scale(1.2) rotate(-10deg); opacity:0.9 }
+.btn-done .leaf { transform: scale(0) translateY(-6px); opacity:0 }
+.btn-done .check { opacity:1; transform: scale(1); }
+.check { opacity:0; transform: scale(0.6); transition: all 320ms cubic-bezier(.2,.8,.2,1); }
+
+/* Radar chart draw animation helper */
+.radar { stroke: var(--leaf-green); stroke-width: 2; fill: rgba(6,95,70,0.06); stroke-dasharray: 500; stroke-dashoffset: 500; transition: stroke-dashoffset 900ms ease; }
+.radar.visible { stroke-dashoffset: 0; }
