@@ -1,0 +1,3 @@
+/*    /index.html   200
+
+# Redirect above ensures SPA client-side routing returns index.html for all paths.
