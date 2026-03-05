@@ -1,11 +1,9 @@
 import React from 'react'
 
-const ART_SRC = 'https://zigguratss.com/assets/upload/art-1155.jpg'
-
 const WORKS = [
-  { title: 'Divine Tunes-09', src: ART_SRC },
-  { title: 'Divine Tunes-10', src: ART_SRC },
-  { title: 'Divine Tunes-12', src: ART_SRC },
+  { title: 'Divine Tunes-09', src: 'https://zigguratss.com/assets/upload/art-1153.jpg' },
+  { title: 'Divine Tunes-10', src: 'https://zigguratss.com/assets/upload/art-1154.jpg' },
+  { title: 'Divine Tunes-12', src: 'https://zigguratss.com/assets/upload/art-1156.jpg' },
 ]
 
 export default function RelatedWorks() {

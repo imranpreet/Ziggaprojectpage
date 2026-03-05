@@ -13,13 +13,20 @@ export default function ARPreview({ image }) {
 
   return (
     <div className="mt-6 bg-white rounded-lg p-4 border border-slate-200">
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold">AR Preview Mockup</h3>
-        <div className="flex items-center space-x-2 text-sm text-slate-600">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-semibold text-slate-900">AR Preview Mockup</h3>
+        <div className="flex items-center gap-2 text-xs">
           {VIEWS.map((v, idx) => (
-            <button key={v.id} onClick={() => setI(idx)} className={`px-2 py-1 rounded ${i === idx ? 'bg-slate-900 text-white' : 'bg-white'}`}>
-              {v.title.split(' ')[0]
-                }
+            <button 
+              key={v.id} 
+              onClick={() => setI(idx)} 
+              className={`px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
+                i === idx 
+                  ? 'bg-slate-900 text-white shadow-md' 
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              }`}
+            >
+              {v.title.split(' ')[0]}
             </button>
           ))}
         </div>

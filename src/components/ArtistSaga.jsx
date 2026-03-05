@@ -3,6 +3,7 @@ import ReadMore from './ReadMore'
 import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import ProductCard from './ProductCard'
+import { Clock, Package, RefreshCw, Shield, MapPin, Globe, CheckCircle } from 'lucide-react'
 
 const items = [
   { title: 'Vedic Meditation', body: 'A contemplative practice informing rhythm and form.' },
@@ -102,7 +103,7 @@ export default function ArtistSaga() {
         </div>
       </div>
       
-      {/* Shipping & Returns Section */}
+      {/* Shipping & Returns Section - Enhanced Paragraph Version */}
       <motion.div 
         className="mt-10 pt-8 border-t-2 border-slate-200"
         initial={{ opacity: 0, y: 20 }}
@@ -110,32 +111,130 @@ export default function ArtistSaga() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h3 className="font-bold text-xl text-slate-900 mb-4 flex items-center gap-3">
-          <span className="w-1 h-6 bg-gradient-to-b from-slate-700 to-slate-400 rounded-full"></span>
-          Shipping & Returns
-        </h3>
+        {/* Enhanced Heading with Animation */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-6"
+        >
+          <motion.h3 
+            className="font-bold text-2xl text-slate-900 flex items-center gap-3 relative"
+            whileHover={{ x: 5 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Animated Golden Bar */}
+            <motion.span 
+              className="w-1.5 h-8 bg-gradient-to-b from-[#c9a96e] via-[#d4af7a] to-[#b8935f] rounded-full shadow-md"
+              animate={{ 
+                scaleY: [1, 1.1, 1],
+                boxShadow: [
+                  "0 0 10px rgba(201, 169, 110, 0.3)",
+                  "0 0 20px rgba(201, 169, 110, 0.6)",
+                  "0 0 10px rgba(201, 169, 110, 0.3)"
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            ></motion.span>
+            
+            {/* Heading Text with Gradient */}
+            <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
+              Shipping & Returns
+            </span>
 
-        <div className="mt-4 bg-slate-50 p-6 rounded-xl border border-slate-200">
-          <ReadMore collapsedHeight={86} className="text-sm text-slate-700 space-y-4">
-            <div className="flex gap-3">
-              <span className="text-slate-900 font-semibold min-w-fit">Delivery Time:</span>
-              <span>It takes 5–7 working days for domestic shipments, 10–20 working days for international shipments depending upon the country.</span>
-            </div>
+            {/* Animated Underline */}
+            <motion.div 
+              className="absolute -bottom-2 left-12 h-0.5 bg-gradient-to-r from-[#c9a96e] via-[#d4af7a] to-transparent rounded-full"
+              initial={{ width: 0 }}
+              whileInView={{ width: "200px" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            ></motion.div>
+          </motion.h3>
+        </motion.div>
 
-            <div className="flex gap-3">
-              <span className="text-slate-900 font-semibold min-w-fit">Delivery Cost:</span>
-              <span>Only Shipping fee is included in the price of the Artwork. Custom Duties, Octroi and Taxes will be borne by the Customer.</span>
-            </div>
+        {/* Enhanced Container with Golden Border Animation */}
+        <motion.div 
+          className="mt-4 relative p-6 rounded-xl overflow-hidden"
+          style={{
+            background: "linear-gradient(135deg, rgba(248, 250, 252, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(248, 250, 252, 1) 100%)"
+          }}
+          whileHover={{ scale: 1.01 }}
+          transition={{ duration: 0.3 }}
+        >
+          {/* Animated Golden Border */}
+          <motion.div
+            className="absolute inset-0 rounded-xl"
+            style={{
+              padding: "2px",
+              background: "linear-gradient(45deg, #c9a96e, #d4af7a, #c9a96e, #b8935f)",
+              backgroundSize: "300% 300%",
+              WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+              WebkitMaskComposite: "xor",
+              maskComposite: "exclude"
+            }}
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            {/* Glowing Corner Effects */}
+            <motion.div
+              className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-[#c9a96e]/20 to-transparent rounded-full blur-xl"
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <motion.div
+              className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-[#d4af7a]/20 to-transparent rounded-full blur-xl"
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+            />
+          </motion.div>
 
-            <div className="flex gap-3">
-              <span className="text-slate-900 font-semibold min-w-fit">Returns:</span>
-              <span>Return will be accepted within 24 hours of receipt of artwork, only if artwork is found damaged (except order made on commission).</span>
-            </div>
+          {/* Content */}
+          <div className="relative z-10">
+            <ReadMore collapsedHeight={86} className="text-sm text-slate-700 space-y-4">
+            <motion.div 
+              className="flex gap-3 p-3 bg-white rounded-lg border border-slate-100 hover:border-[#c9a96e]/30 transition-colors"
+              whileHover={{ x: 5 }}
+            >
+              <span className="text-[#c9a96e] font-bold min-w-fit">Delivery Time:</span>
+              <span className="text-slate-700">It takes <strong className="text-slate-900">5–7 working days</strong> for domestic shipments, <strong className="text-slate-900">10–20 working days</strong> for international shipments depending upon the country.</span>
+            </motion.div>
+
+            <motion.div 
+              className="flex gap-3 p-3 bg-white rounded-lg border border-slate-100 hover:border-[#c9a96e]/30 transition-colors"
+              whileHover={{ x: 5 }}
+            >
+              <span className="text-[#c9a96e] font-bold min-w-fit">Delivery Cost:</span>
+              <span className="text-slate-700">Only <strong className="text-green-600">Shipping fee is included</strong> in the price of the Artwork. Custom Duties, Octroi and Taxes will be <strong className="text-slate-900">borne by the Customer</strong>.</span>
+            </motion.div>
+
+            <motion.div 
+              className="flex gap-3 p-3 bg-white rounded-lg border border-slate-100 hover:border-[#c9a96e]/30 transition-colors"
+              whileHover={{ x: 5 }}
+            >
+              <span className="text-[#c9a96e] font-bold min-w-fit">Returns:</span>
+              <span className="text-slate-700">Return will be accepted within <strong className="text-red-600">24 hours</strong> of receipt of artwork, only if artwork is found <strong className="text-slate-900">damaged</strong> (except order made on commission).</span>
+            </motion.div>
           </ReadMore>
-        </div>
+          </div>
+        </motion.div>
+      </motion.div>
 
-        {/* Other Artworks Section */}
-        <div className="mt-10">
+      {/* Other Artworks Section */}
+      <div className="mt-10">
           <h4 className="font-extrabold text-2xl text-slate-900 mb-4 flex items-center gap-3">
             <span className="w-8 h-[2px] bg-gradient-to-r from-slate-900 to-slate-400"></span>
             OTHER ARTWORKS FROM PRADIP SARKAR
@@ -150,10 +249,10 @@ export default function ArtistSaga() {
               <ProductCard key={p.id} title={p.title} artist={p.artist} image={p.image} price={p.price} href="#" verified={true} />
             ))}
           </div>
-        </div>
+      </div>
 
-        {/* Other Artists Section */}
-        <div className="mt-10">
+      {/* Other Artists Section */}
+      <div className="mt-10">
           <h4 className="font-extrabold text-2xl text-slate-900 mb-4 flex items-center gap-3">
             <span className="w-8 h-[2px] bg-gradient-to-r from-slate-900 to-slate-400"></span>
             ARTWORKS FROM OTHER ARTIST'S
@@ -169,7 +268,6 @@ export default function ArtistSaga() {
             ))}
           </div>
         </div>
-      </motion.div>
     </section>
   )
 }

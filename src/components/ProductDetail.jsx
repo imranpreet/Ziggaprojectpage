@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ZoomIn, Maximize2, ShoppingCart, CreditCard, Truck, CheckCircle, X, Share2, MessageCircle } from 'lucide-react'
+import { ZoomIn, Maximize2, ShoppingCart, CreditCard, Truck, CheckCircle, X, Share2, MessageCircle, Package, Clock, MapPin, Shield, RefreshCw, Globe } from 'lucide-react'
 import ColorExtractor from './ColorExtractor'
 import ARPreview from './ARPreview'
 import RelatedWorks from './RelatedWorks'
@@ -185,10 +185,57 @@ export default function ProductDetail() {
           </div>
 
           <div className="mt-6">
-            <div className="flex items-center gap-2 sm:gap-3 border-b border-slate-100 pb-4 overflow-x-auto">
-              <button onClick={() => setTab('about')} className={`text-xs sm:text-sm py-2 whitespace-nowrap transition-colors ${tab === 'about' ? 'font-semibold text-[#c9a96e]' : 'text-slate-600 hover:text-[#c9a96e]'}`}>About the Artwork</button>
-              <button onClick={() => setTab('artist')} className={`text-xs sm:text-sm py-2 whitespace-nowrap transition-colors ${tab === 'artist' ? 'font-semibold text-[#c9a96e]' : 'text-slate-600 hover:text-[#c9a96e]'}`}>Artist Bio</button>
-              <button onClick={() => setTab('shipping')} className={`text-xs sm:text-sm py-2 whitespace-nowrap transition-colors ${tab === 'shipping' ? 'font-semibold text-[#c9a96e]' : 'text-slate-600 hover:text-[#c9a96e]'}`}>Shipping & Returns</button>
+            <div className="flex items-center gap-2 sm:gap-3 bg-slate-50/50 p-1.5 rounded-xl border border-slate-200 overflow-x-auto">
+              <button 
+                onClick={() => setTab('about')} 
+                className={`
+                  relative px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium whitespace-nowrap rounded-lg
+                  transition-all duration-300 ease-in-out
+                  ${tab === 'about' 
+                    ? 'bg-white text-[#c9a96e] shadow-md shadow-[#c9a96e]/10 border border-[#c9a96e]/20' 
+                    : 'text-slate-600 hover:text-[#c9a96e] hover:bg-white/50'
+                  }
+                `}
+              >
+                <span className="relative z-10">About the Artwork</span>
+                {tab === 'about' && (
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#c9a96e]/5 via-[#d4af7a]/5 to-[#c9a96e]/5 rounded-lg animate-pulse"></span>
+                )}
+              </button>
+              
+              <button 
+                onClick={() => setTab('artist')} 
+                className={`
+                  relative px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium whitespace-nowrap rounded-lg
+                  transition-all duration-300 ease-in-out
+                  ${tab === 'artist' 
+                    ? 'bg-white text-[#c9a96e] shadow-md shadow-[#c9a96e]/10 border border-[#c9a96e]/20' 
+                    : 'text-slate-600 hover:text-[#c9a96e] hover:bg-white/50'
+                  }
+                `}
+              >
+                <span className="relative z-10">Artist Bio</span>
+                {tab === 'artist' && (
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#c9a96e]/5 via-[#d4af7a]/5 to-[#c9a96e]/5 rounded-lg animate-pulse"></span>
+                )}
+              </button>
+              
+              <button 
+                onClick={() => setTab('shipping')} 
+                className={`
+                  relative px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium whitespace-nowrap rounded-lg
+                  transition-all duration-300 ease-in-out
+                  ${tab === 'shipping' 
+                    ? 'bg-white text-[#c9a96e] shadow-md shadow-[#c9a96e]/10 border border-[#c9a96e]/20' 
+                    : 'text-slate-600 hover:text-[#c9a96e] hover:bg-white/50'
+                  }
+                `}
+              >
+                <span className="relative z-10">Shipping & Returns</span>
+                {tab === 'shipping' && (
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#c9a96e]/5 via-[#d4af7a]/5 to-[#c9a96e]/5 rounded-lg animate-pulse"></span>
+                )}
+              </button>
             </div>
 
             <div className="mt-4 text-sm text-slate-700">
@@ -215,12 +262,6 @@ export default function ProductDetail() {
 
                   <ArtworkStatement title="Lady and Butterflies" defaultOpen={true}>
                     <div className="space-y-3">
-                      <motion.button onClick={() => setAdded(true)} whileTap={{ scale: 0.96 }} className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[#c9a96e] hover:bg-[#a87d4d] text-white rounded-lg font-semibold transition-all text-sm sm:text-base">
-                        <ShoppingCart size={16} /> <span>{added ? 'Added' : 'Add to Cart'}</span>
-                      </motion.button>
-                      <motion.button whileHover={{ scale: 1.02 }} className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-[#c9a96e] rounded-lg text-[#c9a96e] hover:bg-[#c9a96e] hover:text-white font-semibold bg-white transition-all text-sm sm:text-base">
-                        <CreditCard size={16} /> <span>Buy Now</span>
-                      </motion.button>
                       <p>To further enhance the connection with nature, I have included three butterflies in the painting. Resplendent in darker shades of purple and pink, they flutter gracefully around the woman’s face. These ethereal creatures symbolize the delicate balance of life and the interconnectedness between all living beings.</p>
 
                       <p>“Lady and Butterflies” belongs to the series “In Harmony with Nature.” This collection explores the profound connection and interdependence between humans and the natural world. Through my art, I strive to inspire viewers to embrace compassion, appreciate the beauty of nature, and live in harmony with our surroundings.</p>
@@ -248,13 +289,375 @@ export default function ProductDetail() {
                 )}
 
                 {tab === 'shipping' && (
-                  <div className="space-y-2">
-                    <p className="mb-2"><strong>Shipping & Returns</strong></p>
-                    <p className="mb-1">Delivery Time: It takes 5–7 working days for domestic shipments, 10–20 working days for international shipments depending upon the country.</p>
-                    <p className="mb-1">Delivery Cost: Shipping fee is included in the price of the artwork. Custom duties, octroi and taxes will be borne by the customer.</p>
-                    <p className="mb-1">Returns: Return will be accepted within 24 hours of receipt of artwork only if the artwork is found damaged (except commissioned orders).</p>
-                    <p className="mt-2">We ship rolled canvas with reinforced tubes for international transit. Framing and insured delivery options are available. Estimated delivery: 10–21 business days. Duties & taxes calculated at checkout.</p>
-                  </div>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="space-y-4"
+                  >
+                    {/* Section Header with Gradient */}
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className="relative overflow-hidden flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-[#c9a96e]/10 via-[#c9a96e]/5 to-transparent rounded-2xl border border-[#c9a96e]/20"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#c9a96e]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      <div className="relative">
+                        <h3 className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                          Shipping & Returns Policy
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-1">Worldwide delivery with care</p>
+                      </div>
+                      <motion.span 
+                        animate={{ 
+                          scale: [1, 1.05, 1],
+                          boxShadow: [
+                            "0 0 0 0 rgba(34, 197, 94, 0)",
+                            "0 0 0 4px rgba(34, 197, 94, 0.1)",
+                            "0 0 0 0 rgba(34, 197, 94, 0)"
+                          ]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold rounded-full shadow-lg"
+                      >
+                        ✓ Free Shipping Included
+                      </motion.span>
+                    </motion.div>
+
+                    {/* Delivery Time Section */}
+                    <motion.div 
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      whileHover={{ 
+                        scale: 1.03, 
+                        y: -5,
+                        boxShadow: "0 20px 40px -10px rgba(201, 169, 110, 0.3)",
+                        borderColor: "rgba(201, 169, 110, 0.6)"
+                      }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                      className="group relative overflow-hidden flex items-start gap-4 p-6 bg-gradient-to-br from-[#c9a96e]/5 via-white to-[#c9a96e]/10 rounded-2xl border-2 border-[#c9a96e]/20 cursor-pointer shadow-md hover:shadow-2xl"
+                    >
+                      {/* Animated Background Gradient */}
+                      <motion.div 
+                        animate={{ 
+                          scale: [1, 1.2, 1],
+                          opacity: [0.2, 0.3, 0.2]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                        className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#c9a96e]/20 to-[#d4af7a]/20 rounded-full blur-3xl -z-0"
+                      ></motion.div>
+                      
+                      {/* Icon with Pulse Animation */}
+                      <motion.div 
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                        className="relative flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#c9a96e] via-[#b8935f] to-[#c9a96e] rounded-2xl flex items-center justify-center shadow-xl"
+                      >
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className="absolute inset-0 bg-[#d4af7a] rounded-2xl opacity-30"
+                        ></motion.div>
+                        <Clock className="w-7 h-7 text-white relative z-10" />
+                      </motion.div>
+                      
+                      <div className="relative flex-1">
+                        <div className="flex items-center gap-2 mb-3">
+                          <h4 className="font-bold text-slate-900 text-lg">Delivery Timeline</h4>
+                          <motion.span 
+                            animate={{ rotate: [0, 5, -5, 0] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="px-2.5 py-1 bg-gradient-to-r from-[#c9a96e] to-[#b8935f] text-white text-[10px] font-bold rounded-full shadow-md"
+                          >
+                            ⚡ FAST
+                          </motion.span>
+                        </div>
+                        <div className="space-y-2.5">
+                          <motion.div 
+                            whileHover={{ x: 5 }}
+                            className="flex items-center gap-3 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <MapPin className="w-5 h-5 text-[#c9a96e] flex-shrink-0" />
+                            <div className="flex-1">
+                              <span className="font-semibold text-slate-900 text-sm block">Domestic Shipping</span>
+                              <p className="text-xs text-slate-600">5-7 business days</p>
+                            </div>
+                          </motion.div>
+                          <motion.div 
+                            whileHover={{ x: 5 }}
+                            className="flex items-center gap-3 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <Globe className="w-5 h-5 text-[#c9a96e] flex-shrink-0" />
+                            <div className="flex-1">
+                              <span className="font-semibold text-slate-900 text-sm block">International Shipping</span>
+                              <p className="text-xs text-slate-600">10-20 business days (varies by country)</p>
+                            </div>
+                          </motion.div>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Delivery Cost Section */}
+                    <motion.div 
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3, duration: 0.4 }}
+                      whileHover={{ 
+                        scale: 1.03, 
+                        y: -5,
+                        boxShadow: "0 20px 40px -10px rgba(201, 169, 110, 0.3)",
+                        borderColor: "rgba(201, 169, 110, 0.6)"
+                      }}
+                      className="group relative overflow-hidden flex items-start gap-4 p-6 bg-gradient-to-br from-white via-[#c9a96e]/5 to-white rounded-2xl border-2 border-[#c9a96e]/20 cursor-pointer shadow-md hover:shadow-2xl"
+                    >
+                      {/* Animated Background */}
+                      <motion.div 
+                        animate={{ 
+                          scale: [1, 1.2, 1],
+                          opacity: [0.2, 0.3, 0.2]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                        className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#c9a96e]/20 to-[#d4af7a]/20 rounded-full blur-3xl -z-0"
+                      ></motion.div>
+                      
+                      {/* Icon */}
+                      <motion.div 
+                        whileHover={{ scale: 1.1, rotate: [0, -10, 10, 0] }}
+                        transition={{ duration: 0.5 }}
+                        className="relative flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#c9a96e] via-[#b8935f] to-[#c9a96e] rounded-2xl flex items-center justify-center shadow-xl"
+                      >
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                          className="absolute inset-0 bg-[#d4af7a] rounded-2xl opacity-30"
+                        ></motion.div>
+                        <Package className="w-7 h-7 text-white relative z-10" />
+                      </motion.div>
+                      
+                      <div className="relative flex-1">
+                        <div className="flex items-center gap-2 mb-3">
+                          <h4 className="font-bold text-slate-900 text-lg">Shipping Cost</h4>
+                          <motion.span 
+                            animate={{ 
+                              scale: [1, 1.1, 1],
+                              boxShadow: [
+                                "0 0 0 0 rgba(34, 197, 94, 0)",
+                                "0 0 0 4px rgba(34, 197, 94, 0.2)",
+                                "0 0 0 0 rgba(34, 197, 94, 0)"
+                              ]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="px-2.5 py-1 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-[10px] font-bold rounded-full shadow-md"
+                          >
+                            🎁 FREE
+                          </motion.span>
+                        </div>
+                        <div className="space-y-2">
+                          <motion.div 
+                            whileHover={{ x: 5 }}
+                            className="flex items-start gap-2 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                            <p className="text-sm text-slate-700"><strong className="text-green-700">Free shipping</strong> included in artwork price</p>
+                          </motion.div>
+                          <motion.div 
+                            whileHover={{ x: 5 }}
+                            className="flex items-start gap-2 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <CheckCircle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                            <p className="text-sm text-slate-700">Custom duties, octroi & taxes are <strong>customer's responsibility</strong></p>
+                          </motion.div>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Returns Policy Section */}
+                    <motion.div 
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4, duration: 0.4 }}
+                      whileHover={{ 
+                        scale: 1.03, 
+                        y: -5,
+                        boxShadow: "0 20px 40px -10px rgba(201, 169, 110, 0.3)",
+                        borderColor: "rgba(201, 169, 110, 0.6)"
+                      }}
+                      className="group relative overflow-hidden flex items-start gap-4 p-6 bg-gradient-to-br from-[#c9a96e]/5 via-white to-[#c9a96e]/10 rounded-2xl border-2 border-[#c9a96e]/20 cursor-pointer shadow-md hover:shadow-2xl"
+                    >
+                      {/* Animated Background */}
+                      <motion.div 
+                        animate={{ 
+                          scale: [1, 1.2, 1],
+                          opacity: [0.2, 0.3, 0.2]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                        className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#c9a96e]/20 to-[#d4af7a]/20 rounded-full blur-3xl -z-0"
+                      ></motion.div>
+                      
+                      {/* Rotating Icon */}
+                      <motion.div 
+                        whileHover={{ rotate: 180, scale: 1.1 }}
+                        transition={{ duration: 0.6, type: "spring" }}
+                        className="relative flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#c9a96e] via-[#b8935f] to-[#c9a96e] rounded-2xl flex items-center justify-center shadow-xl"
+                      >
+                        <motion.div
+                          animate={{ 
+                            scale: [1, 1.2, 1],
+                            rotate: [0, 180, 360]
+                          }}
+                          transition={{ duration: 4, repeat: Infinity }}
+                          className="absolute inset-0 bg-[#d4af7a] rounded-2xl opacity-30"
+                        ></motion.div>
+                        <RefreshCw className="w-7 h-7 text-white relative z-10" />
+                      </motion.div>
+                      
+                      <div className="relative flex-1">
+                        <div className="flex items-center gap-2 mb-3">
+                          <h4 className="font-bold text-slate-900 text-lg">Returns Policy</h4>
+                          <motion.span 
+                            animate={{ rotate: [0, -5, 5, 0] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="px-2.5 py-1 bg-gradient-to-r from-red-600 to-rose-600 text-white text-[10px] font-bold rounded-full shadow-md"
+                          >
+                            ⏱️ 24H
+                          </motion.span>
+                        </div>
+                        <div className="space-y-2">
+                          <motion.p 
+                            whileHover={{ x: 5 }}
+                            className="text-sm text-slate-700 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <strong className="text-[#c9a96e]">24-hour window</strong> from delivery receipt
+                          </motion.p>
+                          <motion.p 
+                            whileHover={{ x: 5 }}
+                            className="text-sm text-slate-700 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            Returns accepted <strong>only if artwork is damaged</strong>
+                          </motion.p>
+                          <motion.div 
+                            whileHover={{ scale: 1.02 }}
+                            className="mt-2 px-4 py-3 bg-gradient-to-r from-white to-[#c9a96e]/10 backdrop-blur-sm rounded-xl border-2 border-[#c9a96e]/30 shadow-sm"
+                          >
+                            <p className="text-xs text-slate-700">
+                              <span className="text-lg">⚠️</span> <strong className="text-[#c9a96e]">Note:</strong> Commissioned/custom orders are <strong className="text-red-700">non-returnable</strong>
+                            </p>
+                          </motion.div>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Premium Protection Section */}
+                    <motion.div 
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5, duration: 0.4 }}
+                      whileHover={{ 
+                        scale: 1.03, 
+                        y: -5,
+                        boxShadow: "0 20px 40px -10px rgba(201, 169, 110, 0.3)",
+                        borderColor: "rgba(201, 169, 110, 0.6)"
+                      }}
+                      className="group relative overflow-hidden flex items-start gap-4 p-6 bg-gradient-to-br from-white via-[#c9a96e]/5 to-white rounded-2xl border-2 border-[#c9a96e]/20 cursor-pointer shadow-md hover:shadow-2xl"
+                    >
+                      {/* Animated Background */}
+                      <motion.div 
+                        animate={{ 
+                          scale: [1, 1.3, 1],
+                          opacity: [0.2, 0.3, 0.2]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
+                        className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#c9a96e]/20 to-[#d4af7a]/20 rounded-full blur-3xl -z-0"
+                      ></motion.div>
+                      
+                      {/* Shield Icon with Pulse */}
+                      <motion.div 
+                        whileHover={{ scale: 1.15 }}
+                        className="relative flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#c9a96e] via-[#b8935f] to-[#c9a96e] rounded-2xl flex items-center justify-center shadow-xl"
+                      >
+                        <motion.div
+                          animate={{ 
+                            scale: [1, 1.3, 1],
+                            opacity: [0.5, 0.8, 0.5]
+                          }}
+                          transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                          className="absolute inset-0 bg-[#d4af7a] rounded-2xl opacity-30"
+                        ></motion.div>
+                        <Shield className="w-7 h-7 text-white relative z-10" />
+                      </motion.div>
+                      
+                      <div className="relative flex-1">
+                        <div className="flex items-center gap-2 mb-3">
+                          <h4 className="font-bold text-slate-900 text-lg">Premium Packaging</h4>
+                          <motion.span 
+                            animate={{ 
+                              scale: [1, 1.05, 1],
+                              rotate: [0, 3, -3, 0]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="px-2.5 py-1 bg-gradient-to-r from-[#c9a96e] to-[#b8935f] text-white text-[10px] font-bold rounded-full shadow-md"
+                          >
+                            🛡️ INSURED
+                          </motion.span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          <motion.div 
+                            whileHover={{ scale: 1.05, x: 3 }}
+                            className="flex items-center gap-2 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <motion.div 
+                              animate={{ scale: [1, 1.3, 1] }}
+                              transition={{ duration: 1.5, repeat: Infinity }}
+                              className="w-2 h-2 bg-gradient-to-r from-[#c9a96e] to-[#d4af7a] rounded-full"
+                            ></motion.div>
+                            <span className="text-sm text-slate-700 font-medium">Reinforced tube packaging</span>
+                          </motion.div>
+                          <motion.div 
+                            whileHover={{ scale: 1.05, x: 3 }}
+                            className="flex items-center gap-2 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <motion.div 
+                              animate={{ scale: [1, 1.3, 1] }}
+                              transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+                              className="w-2 h-2 bg-gradient-to-r from-[#c9a96e] to-[#d4af7a] rounded-full"
+                            ></motion.div>
+                            <span className="text-sm text-slate-700 font-medium">Professional framing available</span>
+                          </motion.div>
+                          <motion.div 
+                            whileHover={{ scale: 1.05, x: 3 }}
+                            className="flex items-center gap-2 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <motion.div 
+                              animate={{ scale: [1, 1.3, 1] }}
+                              transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
+                              className="w-2 h-2 bg-gradient-to-r from-[#c9a96e] to-[#d4af7a] rounded-full"
+                            ></motion.div>
+                            <span className="text-sm text-slate-700 font-medium">Insured delivery option</span>
+                          </motion.div>
+                          <motion.div 
+                            whileHover={{ scale: 1.05, x: 3 }}
+                            className="flex items-center gap-2 bg-white backdrop-blur-sm p-3 rounded-xl shadow-sm border border-[#c9a96e]/30"
+                          >
+                            <motion.div 
+                              animate={{ scale: [1, 1.3, 1] }}
+                              transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}
+                              className="w-2 h-2 bg-gradient-to-r from-[#c9a96e] to-[#d4af7a] rounded-full"
+                            ></motion.div>
+                            <span className="text-sm text-slate-700 font-medium">Secure bubble wrap</span>
+                          </motion.div>
+                        </div>
+                        <motion.div 
+                          whileHover={{ scale: 1.02 }}
+                          className="mt-4 px-4 py-3 bg-gradient-to-r from-[#c9a96e]/10 via-white to-[#c9a96e]/10 rounded-xl border-2 border-[#c9a96e]/30 shadow-sm"
+                        >
+                          <p className="text-xs text-slate-700">
+                            <span className="text-lg">💎</span> <strong className="text-[#c9a96e]">Premium Service:</strong> All duties & taxes calculated at checkout
+                          </p>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  </motion.div>
                 )}
             </div>
           </div>
