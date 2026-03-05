@@ -6,10 +6,15 @@ import './App.css'
 
 function App() {
   const path = window.location.pathname.replace(/\/$/, '')
-  if (path === '/product') return <ProductPage />
+  
+  // Route handling
+  if (path === '/product' || path === '') return <ProductPage />
   if (path === '/luxury') return <HighEndProductExperience />
   if (path === '/artist') return <ArtistPage />
-  return <AboutPage />
+  if (path === '/about') return <AboutPage />
+  
+  // Default to ProductPage for any other route
+  return <ProductPage />
 }
 
 export default App
