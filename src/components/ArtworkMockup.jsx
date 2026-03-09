@@ -52,5 +52,4 @@ export default function ArtworkMockup({ artworkSrc, type = 'wall' }) {
         {currentMockup.label}
       </div>
     </div>
-  )
-}
+  )}
