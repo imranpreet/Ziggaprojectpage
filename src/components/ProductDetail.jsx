@@ -15,6 +15,10 @@ const THUMBS = [
   { src: ART_SRC, alt: 'Divine Tunes-11 - main' },
   { src: ART_SRC, alt: 'Divine Tunes-11 - alternate' },
   { src: ART_SRC, alt: 'Divine Tunes-11 - room view' },
+    { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' },
+  { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' },
+  { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' }
+
 ]
 
 export default function ProductDetail() {
@@ -56,8 +60,27 @@ export default function ProductDetail() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start px-4 md:px-6 lg:px-0">
       {/* Left - Artwork */}
       <div className="space-y-6">
-        <div className="relative bg-white rounded-lg overflow-hidden border border-slate-200">
+        <div 
+          className="relative rounded-lg overflow-hidden"
+          style={active >= 3 ? {
+            background: active === 3 
+              ? 'linear-gradient(135deg, #d4c5a9 0%, #b8a78a 50%, #d4c5a9 100%)' 
+              : active === 4 
+              ? 'linear-gradient(135deg, #c8d5e0 0%, #a4b8c4 50%, #c8d5e0 100%)'
+              : 'linear-gradient(135deg, #e8dcc8 0%, #d4c4a8 50%, #e8dcc8 100%)',
+            padding: '48px',
+            boxShadow: active === 3
+              ? '0 16px 40px rgba(0,0,0,0.35), inset 0 0 0 16px #f5f0e8, inset 0 0 0 40px #8b7355, inset 0 0 0 56px #f5f0e8'
+              : active === 4
+              ? '0 16px 40px rgba(0,0,0,0.35), inset 0 0 0 16px #f0f4f8, inset 0 0 0 40px #5a6d7a, inset 0 0 0 56px #f0f4f8'
+              : '0 16px 40px rgba(0,0,0,0.35), inset 0 0 0 16px #faf8f3, inset 0 0 0 40px #a89070, inset 0 0 0 56px #faf8f3'
+          } : {
+            background: 'white',
+            border: '1px solid #e2e8f0'
+          }}
+        >
           <motion.img
+            key={active}
             src={THUMBS[active].src}
             alt={THUMBS[active].alt}
             initial={{ opacity: 0 }}
@@ -65,10 +88,13 @@ export default function ProductDetail() {
             whileHover={{ scale: 1.015 }}
             transition={{ duration: 0.45 }}
             className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100 cursor-zoom-in"
+            style={active >= 3 ? {
+              boxShadow: '0 8px 16px rgba(0,0,0,0.4)'
+            } : {}}
             onClick={() => setOpen(true)}
           />
 
-          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex items-center space-x-2 sm:space-x-3">
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex items-center space-x-2 sm:space-x-3" style={active >= 3 ? { top: '32px', right: '32px' } : {}}>
             <button aria-label="Zoom" onClick={() => setOpen(true)} className="p-1.5 sm:p-2 bg-white rounded-md shadow-sm border-2 border-[#c9a96e] hover:bg-[#c9a96e] hover:border-[#a87d4d] transition-all">
               <ZoomIn size={16} className="sm:w-[18px] sm:h-[18px]" />
             </button>
@@ -78,17 +104,46 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        <div className="flex space-x-2 sm:space-x-3 md:space-x-4 overflow-x-auto pb-2 scrollbar-hide">
-          {THUMBS.map((t, i) => (
-            <button
-              key={`${t.src}-${i}`}
-              onClick={() => setActive(i)}
-              className={`flex-shrink-0 w-16 h-12 sm:w-20 sm:h-14 md:w-28 md:h-20 rounded-md overflow-hidden border-2 ${i === active ? 'border-[#c9a96e]' : 'border-slate-200'} bg-white hover:border-[#c9a96e] transition-all`}
-              aria-label={`Thumbnail ${i + 1}`}
-            >
-              <img src={t.src} alt={t.alt} className="w-full h-full object-cover" />
-            </button>
-          ))}
+        <div className="flex space-x-2 sm:space-x-3 md:space-x-4 overflow-x-auto pb-4 -mx-1 px-1" style={{ scrollbarWidth: 'thin', scrollbarColor: '#c9a96e #f1f5f9' }}>
+          {THUMBS.map((t, i) => {
+            // Last 3 images (indices 3, 4, 5) should have wall-mounted frame effect
+            const isWallMounted = i >= 3;
+            
+            // Different wall colors for each wall-mounted image
+            const wallStyle = i === 3 ? {
+              background: 'linear-gradient(135deg, #d4c5a9 0%, #b8a78a 50%, #d4c5a9 100%)',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #f5f0e8, inset 0 0 0 4px #8b7355, inset 0 0 0 6px #f5f0e8',
+              padding: '12px'
+            } : i === 4 ? {
+              background: 'linear-gradient(135deg, #c8d5e0 0%, #a4b8c4 50%, #c8d5e0 100%)',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #f0f4f8, inset 0 0 0 4px #5a6d7a, inset 0 0 0 6px #f0f4f8',
+              padding: '12px'
+            } : i === 5 ? {
+              background: 'linear-gradient(135deg, #e8dcc8 0%, #d4c4a8 50%, #e8dcc8 100%)',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #faf8f3, inset 0 0 0 4px #a89070, inset 0 0 0 6px #faf8f3',
+              padding: '12px'
+            } : {};
+            
+            return (
+              <button
+                key={`${t.src}-${i}`}
+                onClick={() => setActive(i)}
+                className={`flex-shrink-0 w-16 h-12 sm:w-20 sm:h-14 md:w-28 md:h-20 rounded-md transition-all cursor-pointer ${
+                  isWallMounted 
+                    ? `relative ${i === active ? 'ring-2 ring-[#c9a96e]' : ''} hover:ring-2 hover:ring-[#c9a96e]/50`
+                    : `overflow-hidden border-2 ${i === active ? 'border-[#c9a96e]' : 'border-slate-200'} bg-white hover:border-[#c9a96e]`
+                }`}
+                aria-label={`Thumbnail ${i + 1}`}
+                style={wallStyle}
+              >
+                <img 
+                  src={t.src} 
+                  alt={t.alt} 
+                  className={`w-full h-full object-cover pointer-events-none ${isWallMounted ? 'shadow-[0_2px_6px_rgba(0,0,0,0.3)]' : ''}`}
+                />
+              </button>
+            );
+          })}
         </div>
 
         <AnimatePresence>

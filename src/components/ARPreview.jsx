@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 const ART_SRC = 'https://zigguratss.com/assets/upload/art-1155.jpg'
-
+//export
 const VIEWS = [
   { id: 'modern', title: 'Modern Living Room', src: ART_SRC },
   { id: 'minimal', title: 'Minimalist Office', src: ART_SRC },
