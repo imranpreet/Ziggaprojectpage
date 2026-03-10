@@ -15,6 +15,10 @@ const THUMBS = [
   { src: ART_SRC, alt: 'Divine Tunes-11 - main' },
   { src: ART_SRC, alt: 'Divine Tunes-11 - alternate' },
   { src: ART_SRC, alt: 'Divine Tunes-11 - room view' },
+    { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' },
+  { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' },
+  { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' }
+
 ]
 
 export default function ProductDetail() {
@@ -22,6 +26,16 @@ export default function ProductDetail() {
   const [tab, setTab] = useState('about')
   const [open, setOpen] = useState(false)
   const [added, setAdded] = useState(false)
+  const [isZoomed, setIsZoomed] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    if (!isZoomed) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+    setMousePosition({ x, y })
+  }
 
   useEffect(() => {
     let t
@@ -56,19 +70,52 @@ export default function ProductDetail() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start px-4 md:px-6 lg:px-0">
       {/* Left - Artwork */}
       <div className="space-y-6">
-        <div className="relative bg-white rounded-lg overflow-hidden border border-slate-200">
+        <div 
+          className="relative rounded-lg overflow-hidden cursor-zoom-in"
+          onMouseEnter={() => setIsZoomed(true)}
+          onMouseLeave={() => setIsZoomed(false)}
+          onMouseMove={handleMouseMove}
+          style={active >= 3 ? {
+            background: active === 3 
+              ? 'linear-gradient(135deg, #d4c5a9 0%, #b8a78a 50%, #d4c5a9 100%)' 
+              : active === 4 
+              ? 'linear-gradient(135deg, #c8d5e0 0%, #a4b8c4 50%, #c8d5e0 100%)'
+              : 'linear-gradient(135deg, #e8dcc8 0%, #d4c4a8 50%, #e8dcc8 100%)',
+            padding: '48px',
+            boxShadow: active === 3
+              ? '0 16px 40px rgba(0,0,0,0.35), inset 0 0 0 16px #f5f0e8, inset 0 0 0 40px #8b7355, inset 0 0 0 56px #f5f0e8'
+              : active === 4
+              ? '0 16px 40px rgba(0,0,0,0.35), inset 0 0 0 16px #f0f4f8, inset 0 0 0 40px #5a6d7a, inset 0 0 0 56px #f0f4f8'
+              : '0 16px 40px rgba(0,0,0,0.35), inset 0 0 0 16px #faf8f3, inset 0 0 0 40px #a89070, inset 0 0 0 56px #faf8f3'
+          } : {
+            background: 'white',
+            border: '1px solid #e2e8f0'
+          }}
+        >
           <motion.img
+            key={active}
             src={THUMBS[active].src}
             alt={THUMBS[active].alt}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            whileHover={{ scale: 1.015 }}
-            transition={{ duration: 0.45 }}
-            className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100 cursor-zoom-in"
+            animate={{ 
+              opacity: 1,
+              scale: isZoomed ? 2 : 1
+            }}
+            transition={{ 
+              duration: 0.3,
+              ease: "easeOut"
+            }}
+            className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100"
+            style={{
+              transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
+              ...(active >= 3 ? {
+                boxShadow: '0 8px 16px rgba(0,0,0,0.4)'
+              } : {})
+            }}
             onClick={() => setOpen(true)}
           />
 
-          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex items-center space-x-2 sm:space-x-3">
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex items-center space-x-2 sm:space-x-3" style={active >= 3 ? { top: '32px', right: '32px' } : {}}>
             <button aria-label="Zoom" onClick={() => setOpen(true)} className="p-1.5 sm:p-2 bg-white rounded-md shadow-sm border-2 border-[#c9a96e] hover:bg-[#c9a96e] hover:border-[#a87d4d] transition-all">
               <ZoomIn size={16} className="sm:w-[18px] sm:h-[18px]" />
             </button>
@@ -78,27 +125,100 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        <div className="flex space-x-2 sm:space-x-3 md:space-x-4 overflow-x-auto pb-2 scrollbar-hide">
-          {THUMBS.map((t, i) => (
-            <button
-              key={`${t.src}-${i}`}
-              onClick={() => setActive(i)}
-              className={`flex-shrink-0 w-16 h-12 sm:w-20 sm:h-14 md:w-28 md:h-20 rounded-md overflow-hidden border-2 ${i === active ? 'border-[#c9a96e]' : 'border-slate-200'} bg-white hover:border-[#c9a96e] transition-all`}
-              aria-label={`Thumbnail ${i + 1}`}
-            >
-              <img src={t.src} alt={t.alt} className="w-full h-full object-cover" />
-            </button>
-          ))}
+        <div className="flex space-x-2 sm:space-x-3 md:space-x-4 overflow-x-auto pb-4 -mx-1 px-1" style={{ scrollbarWidth: 'thin', scrollbarColor: '#c9a96e #f1f5f9' }}>
+          {THUMBS.map((t, i) => {
+            // Last 3 images (indices 3, 4, 5) should have wall-mounted frame effect
+            const isWallMounted = i >= 3;
+            
+            // Different wall colors for each wall-mounted image
+            const wallStyle = i === 3 ? {
+              background: 'linear-gradient(135deg, #d4c5a9 0%, #b8a78a 50%, #d4c5a9 100%)',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #f5f0e8, inset 0 0 0 4px #8b7355, inset 0 0 0 6px #f5f0e8',
+              padding: '12px'
+            } : i === 4 ? {
+              background: 'linear-gradient(135deg, #c8d5e0 0%, #a4b8c4 50%, #c8d5e0 100%)',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #f0f4f8, inset 0 0 0 4px #5a6d7a, inset 0 0 0 6px #f0f4f8',
+              padding: '12px'
+            } : i === 5 ? {
+              background: 'linear-gradient(135deg, #e8dcc8 0%, #d4c4a8 50%, #e8dcc8 100%)',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #faf8f3, inset 0 0 0 4px #a89070, inset 0 0 0 6px #faf8f3',
+              padding: '12px'
+            } : {};
+            
+            return (
+              <button
+                key={`${t.src}-${i}`}
+                onClick={() => setActive(i)}
+                className={`flex-shrink-0 w-16 h-12 sm:w-20 sm:h-14 md:w-28 md:h-20 rounded-md transition-all cursor-pointer ${
+                  isWallMounted 
+                    ? `relative ${i === active ? 'ring-2 ring-[#c9a96e]' : ''} hover:ring-2 hover:ring-[#c9a96e]/50`
+                    : `overflow-hidden border-2 ${i === active ? 'border-[#c9a96e]' : 'border-slate-200'} bg-white hover:border-[#c9a96e]`
+                }`}
+                aria-label={`Thumbnail ${i + 1}`}
+                style={wallStyle}
+              >
+                <img 
+                  src={t.src} 
+                  alt={t.alt} 
+                  className={`w-full h-full object-cover pointer-events-none ${isWallMounted ? 'shadow-[0_2px_6px_rgba(0,0,0,0.3)]' : ''}`}
+                />
+              </button>
+            );
+          })}
         </div>
 
         <AnimatePresence>
           {open && (
-            <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <motion.div className="relative max-w-6xl w-[95%] sm:w-[92%] h-[80%] sm:h-[84%] bg-white rounded-lg overflow-hidden" initial={{ scale: 0.98 }} animate={{ scale: 1 }} exit={{ scale: 0.98 }}>
-                <button onClick={() => setOpen(false)} className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50 p-1.5 sm:p-2 rounded bg-white/90 border-2 border-[#c9a96e] hover:bg-[#c9a96e] hover:border-[#a87d4d] transition-all">
-                  <X size={18} />
+            <motion.div 
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm" 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+            >
+              <motion.div 
+                className="relative max-w-7xl w-[95%] sm:w-[92%] h-[85%] sm:h-[90%] bg-black rounded-2xl overflow-hidden shadow-2xl" 
+                initial={{ scale: 0.9, opacity: 0 }} 
+                animate={{ scale: 1, opacity: 1 }} 
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button 
+                  onClick={() => setOpen(false)} 
+                  className="absolute top-3 right-3 sm:top-5 sm:right-5 z-50 p-2 sm:p-3 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/20 hover:bg-[#c9a96e] hover:border-[#c9a96e] text-white transition-all group"
+                >
+                  <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
                 </button>
-                <img src={THUMBS[active].src} alt="fullscreen" className="w-full h-full object-contain bg-white" />
+                
+                {/* Zoom Instructions */}
+                <div className="absolute top-3 left-3 sm:top-5 sm:left-5 z-40 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm">
+                  <ZoomIn size={14} className="inline mr-2" />
+                  Hover to zoom • Click outside to close
+                </div>
+
+                <div 
+                  className="w-full h-full flex items-center justify-center p-4 sm:p-8 overflow-hidden cursor-zoom-in group"
+                  onMouseEnter={() => setIsZoomed(true)}
+                  onMouseLeave={() => setIsZoomed(false)}
+                  onMouseMove={handleMouseMove}
+                >
+                  <motion.img 
+                    src={THUMBS[active].src} 
+                    alt="fullscreen" 
+                    className="max-w-full max-h-full object-contain"
+                    animate={{ 
+                      scale: isZoomed ? 2.5 : 1
+                    }}
+                    transition={{ 
+                      duration: 0.4,
+                      ease: "easeOut"
+                    }}
+                    style={{
+                      transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`
+                    }}
+                  />
+                </div>
               </motion.div>
             </motion.div>
           )}

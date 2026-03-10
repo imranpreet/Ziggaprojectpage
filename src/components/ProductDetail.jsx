@@ -26,6 +26,16 @@ export default function ProductDetail() {
   const [tab, setTab] = useState('about')
   const [open, setOpen] = useState(false)
   const [added, setAdded] = useState(false)
+  const [isZoomed, setIsZoomed] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    if (!isZoomed) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+    setMousePosition({ x, y })
+  }
 
   useEffect(() => {
     let t
@@ -61,7 +71,10 @@ export default function ProductDetail() {
       {/* Left - Artwork */}
       <div className="space-y-6">
         <div 
-          className="relative rounded-lg overflow-hidden"
+          className="relative rounded-lg overflow-hidden cursor-zoom-in"
+          onMouseEnter={() => setIsZoomed(true)}
+          onMouseLeave={() => setIsZoomed(false)}
+          onMouseMove={handleMouseMove}
           style={active >= 3 ? {
             background: active === 3 
               ? 'linear-gradient(135deg, #d4c5a9 0%, #b8a78a 50%, #d4c5a9 100%)' 
@@ -84,13 +97,21 @@ export default function ProductDetail() {
             src={THUMBS[active].src}
             alt={THUMBS[active].alt}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            whileHover={{ scale: 1.015 }}
-            transition={{ duration: 0.45 }}
-            className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100 cursor-zoom-in"
-            style={active >= 3 ? {
-              boxShadow: '0 8px 16px rgba(0,0,0,0.4)'
-            } : {}}
+            animate={{ 
+              opacity: 1,
+              scale: isZoomed ? 2 : 1
+            }}
+            transition={{ 
+              duration: 0.3,
+              ease: "easeOut"
+            }}
+            className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100"
+            style={{
+              transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
+              ...(active >= 3 ? {
+                boxShadow: '0 8px 16px rgba(0,0,0,0.4)'
+              } : {})
+            }}
             onClick={() => setOpen(true)}
           />
 
@@ -148,12 +169,56 @@ export default function ProductDetail() {
 
         <AnimatePresence>
           {open && (
-            <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <motion.div className="relative max-w-6xl w-[95%] sm:w-[92%] h-[80%] sm:h-[84%] bg-white rounded-lg overflow-hidden" initial={{ scale: 0.98 }} animate={{ scale: 1 }} exit={{ scale: 0.98 }}>
-                <button onClick={() => setOpen(false)} className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50 p-1.5 sm:p-2 rounded bg-white/90 border-2 border-[#c9a96e] hover:bg-[#c9a96e] hover:border-[#a87d4d] transition-all">
-                  <X size={18} />
+            <motion.div 
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm" 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+            >
+              <motion.div 
+                className="relative max-w-7xl w-[95%] sm:w-[92%] h-[85%] sm:h-[90%] bg-black rounded-2xl overflow-hidden shadow-2xl" 
+                initial={{ scale: 0.9, opacity: 0 }} 
+                animate={{ scale: 1, opacity: 1 }} 
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button 
+                  onClick={() => setOpen(false)} 
+                  className="absolute top-3 right-3 sm:top-5 sm:right-5 z-50 p-2 sm:p-3 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/20 hover:bg-[#c9a96e] hover:border-[#c9a96e] text-white transition-all group"
+                >
+                  <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
                 </button>
-                <img src={THUMBS[active].src} alt="fullscreen" className="w-full h-full object-contain bg-white" />
+                
+                {/* Zoom Instructions */}
+                <div className="absolute top-3 left-3 sm:top-5 sm:left-5 z-40 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm">
+                  <ZoomIn size={14} className="inline mr-2" />
+                  Hover to zoom • Click outside to close
+                </div>
+
+                <div 
+                  className="w-full h-full flex items-center justify-center p-4 sm:p-8 overflow-hidden cursor-zoom-in group"
+                  onMouseEnter={() => setIsZoomed(true)}
+                  onMouseLeave={() => setIsZoomed(false)}
+                  onMouseMove={handleMouseMove}
+                >
+                  <motion.img 
+                    src={THUMBS[active].src} 
+                    alt="fullscreen" 
+                    className="max-w-full max-h-full object-contain"
+                    animate={{ 
+                      scale: isZoomed ? 2.5 : 1
+                    }}
+                    transition={{ 
+                      duration: 0.4,
+                      ease: "easeOut"
+                    }}
+                    style={{
+                      transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`
+                    }}
+                  />
+                </div>
               </motion.div>
             </motion.div>
           )}
