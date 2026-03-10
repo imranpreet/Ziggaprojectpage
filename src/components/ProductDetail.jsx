@@ -111,8 +111,13 @@ export default function ProductDetail() {
               zIndex: 50,
               transition: { duration: 0.3, ease: "easeOut" }
             }}
+            whileTap={{ 
+              scale: 1.1,
+              zIndex: 50,
+              transition: { duration: 0.3, ease: "easeOut" }
+            }}
             transition={{ duration: 0.45 }}
-            className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100 cursor-zoom-in rounded-lg"
+            className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100 cursor-zoom-in rounded-lg touch-manipulation"
             style={active >= 3 ? {
               boxShadow: '0 8px 16px rgba(0,0,0,0.4)'
             } : {}}
