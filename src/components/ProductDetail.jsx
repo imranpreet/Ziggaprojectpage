@@ -82,10 +82,7 @@ export default function ProductDetail() {
       {/* Left - Artwork */}
       <div className="space-y-6">
         <div 
-          className="relative rounded-lg overflow-hidden"
-          onMouseEnter={() => setShowMagnifier(true)}
-          onMouseLeave={() => setShowMagnifier(false)}
-          onMouseMove={handleMouseMove}
+          className="relative rounded-lg overflow-visible"
           style={active >= 3 ? {
             background: active === 3 
               ? 'linear-gradient(135deg, #d4c5a9 0%, #b8a78a 50%, #d4c5a9 100%)' 
@@ -109,36 +106,18 @@ export default function ProductDetail() {
             alt={THUMBS[active].alt}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            whileHover={{ 
+              scale: 1.1,
+              zIndex: 50,
+              transition: { duration: 0.3, ease: "easeOut" }
+            }}
             transition={{ duration: 0.45 }}
-            className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100 cursor-zoom-in"
+            className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100 cursor-zoom-in rounded-lg"
             style={active >= 3 ? {
               boxShadow: '0 8px 16px rgba(0,0,0,0.4)'
             } : {}}
             onClick={() => setOpen(true)}
           />
-
-          {/* Magnifier Lens - Appears next to cursor */}
-          {showMagnifier && (
-            <div
-              className="fixed pointer-events-none z-50 border-4 border-[#c9a96e] rounded-full overflow-hidden shadow-2xl"
-              style={{
-                width: '350px',
-                height: '350px',
-                left: `${magnifierPosition.x + 30}px`,
-                top: `${magnifierPosition.y - 175}px`,
-                backgroundImage: `url(${THUMBS[active].src})`,
-                backgroundSize: '300%',
-                backgroundPosition: `${imagePosition.x}% ${imagePosition.y}%`,
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: 'white'
-              }}
-            >
-              <div className="absolute inset-0 border-4 border-white rounded-full"></div>
-              <div className="absolute top-2 right-2 bg-[#c9a96e]/90 text-white text-xs px-2 py-1 rounded-full">
-                3x Zoom
-              </div>
-            </div>
-          )}
 
           <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex items-center space-x-2 sm:space-x-3" style={active >= 3 ? { top: '32px', right: '32px' } : {}}>
             <button aria-label="Zoom" onClick={() => setOpen(true)} className="p-1.5 sm:p-2 bg-white rounded-md shadow-sm border-2 border-[#c9a96e] hover:bg-[#c9a96e] hover:border-[#a87d4d] transition-all">
