@@ -1,5 +1,4 @@
 import React from 'react'
-import ReadMore from './ReadMore'
 import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import ProductCard from './ProductCard'
@@ -204,7 +203,7 @@ export default function ArtistSaga() {
 
           {/* Content */}
           <div className="relative z-10">
-            <ReadMore collapsedHeight={86} className="text-sm text-slate-700 space-y-4">
+            <div className="text-sm text-slate-700 space-y-4">
             <motion.div 
               className="flex gap-3 p-3 bg-white rounded-lg border border-slate-100 hover:border-[#c9a96e]/30 transition-colors"
               whileHover={{ x: 5 }}
@@ -228,7 +227,7 @@ export default function ArtistSaga() {
               <span className="text-[#c9a96e] font-bold min-w-fit">Returns:</span>
               <span className="text-slate-700">Return will be accepted within <strong className="text-red-600">24 hours</strong> of receipt of artwork, only if artwork is found <strong className="text-slate-900">damaged</strong> (except order made on commission).</span>
             </motion.div>
-          </ReadMore>
+          </div>
           </div>
         </motion.div>
       </motion.div>
