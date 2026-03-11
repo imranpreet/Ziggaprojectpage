@@ -8,6 +8,9 @@ import ArtistBioDetailed from './ArtistBioDetailed'
 import ArtworkStatement from './ArtworkStatement'
 import ReadMore from './ReadMore'
 import ArtistCardMini from './ArtistCardMini'
+import wallImage1 from '../image 1.png'
+import wallImage2 from '../image2.png'
+import wallImage3 from '../image3.png'
 
 const ART_SRC = 'https://zigguratss.com/assets/upload/art-1155.jpg'
 
@@ -15,10 +18,9 @@ const THUMBS = [
   { src: ART_SRC, alt: 'Divine Tunes-11 - main' },
   { src: ART_SRC, alt: 'Divine Tunes-11 - alternate' },
   { src: ART_SRC, alt: 'Divine Tunes-11 - room view' },
-    { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' },
-  { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' },
-  { src: "https://zigguratss.com/assets/upload/art-1155.jpg", alt: 'Divine Tunes-11 - room view' }
-
+  { src: wallImage1, alt: 'Divine Tunes-11 - wall view 1' },
+  { src: wallImage2, alt: 'Divine Tunes-11 - wall view 2' },
+  { src: wallImage3, alt: 'Divine Tunes-11 - wall view 3' }
 ]
 
 export default function ProductDetail() {
