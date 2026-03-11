@@ -237,12 +237,12 @@ export default function ProductDetail() {
       </div>
 
       {/* Right - Sticky Sidebar */}
-      <aside className="md:sticky md:top-6 md:self-start md:max-h-[calc(100vh-3rem)] md:overflow-y-auto">
+      <aside className="md:sticky md:top-4 md:self-start md:h-fit">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full bg-white p-4 sm:p-6 rounded-xl border border-slate-200 text-slate-900 shadow-deep"
+          className="w-full bg-white p-4 sm:p-6 rounded-xl border border-slate-200 text-slate-900 shadow-deep sticky top-4"
         >
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold">Divine Tunes-11</h1>
           <a href="#" className="text-sm text-slate-600 block mt-2 hover:underline">Pradip Sarkar</a>
