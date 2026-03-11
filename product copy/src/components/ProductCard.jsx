@@ -46,18 +46,18 @@ export default function ProductCard({ title, artist, image, price, href = '#', v
         whileHover={{ y: -6 }}
         transition={{ type: 'spring', stiffness: 250, damping: 22 }}
       >
-  <button onClick={() => setOpen(true)} className={`block w-full ${sizeClasses} overflow-hidden relative p-6 bg-transparent`}> 
+  <button onClick={() => setOpen(true)} className={`block w-full ${sizeClasses} overflow-hidden relative p-2 sm:p-4 md:p-6 bg-transparent`}> 
           <div className="product-image-frame w-full h-full rounded-md relative flex items-center justify-center">
             <img loading="lazy" src={image} alt={title} className="w-full h-full object-cover product-image" />
             <div className="image-veil" />
           </div>
 
           {price && (
-            <div className="absolute top-4 right-4 product-price-badge">{price}</div>
+            <div className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 product-price-badge">{price}</div>
           )}
         </button>
 
-        <div className="p-4">
+        <div className="p-2 sm:p-3 md:p-4">
           <h4 className="font-serif text-sm text-slate-900 line-clamp-2">{title}</h4>
           <div className="flex items-center justify-between mt-1">
             <p className="text-xs muted-text">{artist}</p>
