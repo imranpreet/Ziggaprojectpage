@@ -13,7 +13,7 @@ export default function ProductCard({ title, artist, image, price, href = '#', v
   }, [open])
 
   // variant: 'tall' or 'short' -> controls image frame height for masonry-like look
-  const sizeClasses = variant === 'short' ? 'h-44 sm:h-48 md:h-56' : 'h-64 sm:h-72 md:h-80'
+  const sizeClasses = 'h-48 sm:h-56 md:h-72'
 
   const [selectedVariant, setSelectedVariant] = useState('simple')
 
@@ -61,7 +61,6 @@ export default function ProductCard({ title, artist, image, price, href = '#', v
           <h4 className="font-serif text-sm text-slate-900 line-clamp-2">{title}</h4>
           <div className="flex items-center justify-between mt-1">
             <p className="text-xs muted-text">{artist}</p>
-            {verified && <span className="text-xs px-2 py-0.5 bg-white/80 text-[#b88f3a] rounded">Verified</span>}
           </div>
 
           <div className="mt-3 flex items-center gap-3">
