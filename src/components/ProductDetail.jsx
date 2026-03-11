@@ -58,28 +58,6 @@ export default function ProductDetail() {
 
   return (
     <div className="relative">
-      {/* Left Side Text - DIVINE */}
-      <div className="hidden lg:flex fixed left-4 top-1/2 -translate-y-1/2 z-10 h-screen items-center justify-center">
-        <div className="flex flex-col items-center justify-center">
-          {['D', 'I', 'V', 'I', 'N', 'E'].map((letter, idx) => (
-            <span key={idx} className="text-9xl font-extrabold leading-none" style={{ fontFamily: 'serif', color: '#b8935f' }}>
-              {letter}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Right Side Text - TUNES */}
-      <div className="hidden lg:flex fixed right-4 top-1/2 -translate-y-1/2 z-10 h-screen items-center justify-center">
-        <div className="flex flex-col items-center justify-center">
-          {['T', 'U', 'N', 'E', 'S'].map((letter, idx) => (
-            <span key={idx} className="text-9xl font-extrabold leading-none" style={{ fontFamily: 'serif', color: '#b8935f' }}>
-              {letter}
-            </span>
-          ))}
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start px-4 md:px-6 lg:px-0">
       {/* Left - Artwork */}
       <div className="space-y-6">
