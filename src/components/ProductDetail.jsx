@@ -89,7 +89,7 @@ export default function ProductDetail() {
               : active === 4 
               ? 'linear-gradient(135deg, #c8d5e0 0%, #a4b8c4 50%, #c8d5e0 100%)'
               : 'linear-gradient(135deg, #e8dcc8 0%, #d4c4a8 50%, #e8dcc8 100%)',
-            padding: '48px',
+            padding: '96px',
             boxShadow: active === 3
               ? '0 16px 40px rgba(0,0,0,0.35), inset 0 0 0 16px #f5f0e8, inset 0 0 0 40px #8b7355, inset 0 0 0 56px #f5f0e8'
               : active === 4
@@ -119,8 +119,15 @@ export default function ProductDetail() {
             transition={{ duration: 0.45 }}
             className="w-full h-[420px] sm:h-[520px] md:h-[640px] object-cover bg-slate-100 cursor-zoom-in rounded-lg touch-manipulation"
             style={active >= 3 ? {
-              boxShadow: '0 8px 16px rgba(0,0,0,0.4)'
-            } : {}}
+              boxShadow: '0 8px 16px rgba(0,0,0,0.4)',
+              width: '70%',
+              height: 'auto',
+              margin: '0 auto'
+            } : {
+              width: '70%',
+              height: 'auto',
+              margin: '0 auto'
+            }}
             onClick={() => setOpen(true)}
           />
 
@@ -143,15 +150,15 @@ export default function ProductDetail() {
             const wallStyle = i === 3 ? {
               background: 'linear-gradient(135deg, #d4c5a9 0%, #b8a78a 50%, #d4c5a9 100%)',
               boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #f5f0e8, inset 0 0 0 4px #8b7355, inset 0 0 0 6px #f5f0e8',
-              padding: '12px'
+              padding: '24px'
             } : i === 4 ? {
               background: 'linear-gradient(135deg, #c8d5e0 0%, #a4b8c4 50%, #c8d5e0 100%)',
               boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #f0f4f8, inset 0 0 0 4px #5a6d7a, inset 0 0 0 6px #f0f4f8',
-              padding: '12px'
+              padding: '24px'
             } : i === 5 ? {
               background: 'linear-gradient(135deg, #e8dcc8 0%, #d4c4a8 50%, #e8dcc8 100%)',
               boxShadow: '0 8px 20px rgba(0,0,0,0.25), inset 0 0 0 2px #faf8f3, inset 0 0 0 4px #a89070, inset 0 0 0 6px #faf8f3',
-              padding: '12px'
+              padding: '24px'
             } : {};
             
             return (
@@ -233,17 +240,6 @@ export default function ProductDetail() {
           )}
         </AnimatePresence>
 
-        <div className="mt-4">
-          <h4 className="text-sm text-slate-300 mb-2">Palette</h4>
-          <ColorExtractor src={THUMBS[active].src} />
-        </div>
-
-        <div className="mt-4">
-          <ARPreview image={THUMBS[active].src} />
-        </div>
-
-        <RelatedWorks />
-
         {/* Artist Section */}
         <motion.div 
           className="mt-16"
@@ -279,7 +275,7 @@ export default function ProductDetail() {
       </div>
 
       {/* Right - Sticky Sidebar */}
-      <aside className="md:sticky md:top-0">
+      <aside className="md:sticky md:top-6 md:self-start md:max-h-[calc(100vh-3rem)] md:overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
